@@ -1,121 +1,131 @@
 import { useState, useEffect } from 'react'
-
+import {Outlet } from 'react-router-dom'
 import './App.css'
 import ProductTable from './components/ProductTable'
 import ProductForm from './components/ProductForm'
+import Navbar from '.'
 
 // CRUD COM JSON SERVER
 
 function App() {  
-  const [products, setProducts] = useState([]);
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
-  const [edit, setEdit] = useState(false);
+const [count,setCount] = useState (0)
+return (
+  <>
+  <Navbar />
+  <Outlet />
+  <p>Footer</p>
+  </>
+)
 
-  const url = 'http://localhost:3000/products';
+//   const [products, setProducts] = useState([]);
+//   const [id, setId] = useState("");
+//   const [name, setName] = useState("");
+//   const [price, setPrice] = useState("");
+//   const [stock, setStock] = useState("");
+//   const [edit, setEdit] = useState(false);
 
-  useEffect(() => {
-    // Lista todos os produtos:
-    const getProductsList = async() => {
-      const res = await fetch(url);
-      const data = await res.json();
-      setProducts(data);
-    }
+//   const url = 'http://localhost:3000/products';
 
-    getProductsList();
+//   useEffect(() => {
+//     // Lista todos os produtos:
+//     const getProductsList = async() => {
+//       const res = await fetch(url);
+//       const data = await res.json();
+//       setProducts(data);
+//     }
 
-  }, []);
+//     getProductsList();
 
-  const clearForm = () => {
-    setName("");
-    setPrice("");
-    setStock("");
-  }
+//   }, []);
 
-  // Busca apenas um produto pelo seu id:
-  const getProductById = async(id) => {
-    // Faz a requisição http
-    const res = await fetch(url + `/${id}`);
-    const data = await res.json();
-    // Carrega os dados no formulário para edição:
-    setName(data.name)
-    setPrice(data.price);
-    setStock(data.stock);
-    setId(data.id);
+//   const clearForm = () => {
+//     setName("");
+//     setPrice("");
+//     setStock("");
+//   }
 
-    // Habilita edição:
-    setEdit(true);
-  }
+//   // Busca apenas um produto pelo seu id:
+//   const getProductById = async(id) => {
+//     // Faz a requisição http
+//     const res = await fetch(url + `/${id}`);
+//     const data = await res.json();
+//     // Carrega os dados no formulário para edição:
+//     setName(data.name)
+//     setPrice(data.price);
+//     setStock(data.stock);
+//     setId(data.id);
 
-  const saveProduct = async (e) => {
-    e.preventDefault();
-    const saveRequestParams = {
-      method: edit ? "PUT" : "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({ name, price, stock })
-    }
+//     // Habilita edição:
+//     setEdit(true);
+//   }
 
-    // Cria url para buscar todos ou apenas um produto
-    const save_url = edit ? url + `/${id}` : url;
+//   const saveProduct = async (e) => {
+//     e.preventDefault();
+//     const saveRequestParams = {
+//       method: edit ? "PUT" : "POST",
+//       headers: {
+//         "content-type": "application/json"
+//       },
+//       body: JSON.stringify({ name, price, stock })
+//     }
 
-    // Faz a requisição http
-    const res = await fetch(save_url, saveRequestParams);
+//     // Cria url para buscar todos ou apenas um produto
+//     const save_url = edit ? url + `/${id}` : url;
 
-    // Se for cadastro de produto novo:
-    if(!edit) { 
-      const newProduct = await res.json();
-      // Atualização da tabela:
-      setProducts((prevProducts) => [...prevProducts, newProduct]);
-    }
+//     // Faz a requisição http
+//     const res = await fetch(save_url, saveRequestParams);
 
-    // Se for edição/atualização de produto já cadastrado:
-    if(edit) {       
-      const editedProduct = await res.json();
-      // Atualização da tabela:
-      const editedProductIndex = products.findIndex(prod => prod.id === id);
-      products[editedProductIndex] = editedProduct;
-      setProducts(products);
-   }
+//     // Se for cadastro de produto novo:
+//     if(!edit) { 
+//       const newProduct = await res.json();
+//       // Atualização da tabela:
+//       setProducts((prevProducts) => [...prevProducts, newProduct]);
+//     }
 
-    clearForm();
-    setEdit(false);
-  }
+//     // Se for edição/atualização de produto já cadastrado:
+//     if(edit) {       
+//       const editedProduct = await res.json();
+//       // Atualização da tabela:
+//       const editedProductIndex = products.findIndex(prod => prod.id === id);
+//       products[editedProductIndex] = editedProduct;
+//       setProducts(products);
+//    }
 
-  const deleteProduct = async(id) => {
-    // Faz a requisição http
-    const res = await fetch(url + `/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json"
-      },
-    });
+//     clearForm();
+//     setEdit(false);
+//   }
 
-    const deletedProduct = await res.json();
-    // Atualização da tabela:
-    setProducts(products.filter(prod => prod.id !== deletedProduct.id));
-  }
+//   const deleteProduct = async(id) => {
+//     // Faz a requisição http
+//     const res = await fetch(url + `/${id}`, {
+//       method: "DELETE",
+//       headers: {
+//         "content-type": "application/json"
+//       },
+//     });
 
-  // Mudança dos estados ao digitar no formulário:
-  const handleName = (e) => {setName(e.target.value)};
-  const handlePrice = (e) => {setPrice(e.target.value)};
-  const handleStock = (e) => {setStock(e.target.value)};
+//     const deletedProduct = await res.json();
+//     // Atualização da tabela:
+//     setProducts(products.filter(prod => prod.id !== deletedProduct.id));
+//   }
 
-  return (
-    <>
-     <h2>CRUD com JSON Server</h2>
-     <div>
-        {
-          products.length > 0 ? <ProductTable products={products} deleteProduct={deleteProduct} editProduct={getProductById} /> : <h3 style={{marginBottom: '30px'}}>Nenhum produto cadastrado...</h3>
-        }
-      </div>
+//   // Mudança dos estados ao digitar no formulário:
+//   const handleName = (e) => {setName(e.target.value)};
+//   const handlePrice = (e) => {setPrice(e.target.value)};
+//   const handleStock = (e) => {setStock(e.target.value)};
 
-      <ProductForm name={name} price={price} stock={stock} handleName={handleName} handlePrice={handlePrice} handleStock={handleStock} saveProduct={saveProduct}/>
-    </>
-  )
-}
+//   return (
+//     <>
+//      <h2>CRUD com JSON Server</h2>
+//      <div>
+//         {
+//           products.length > 0 ? <ProductTable products={products} deleteProduct={deleteProduct} editProduct={getProductById} /> : <h3 style={{marginBottom: '30px'}}>Nenhum produto cadastrado...</h3>
+//         }
+//       </div>
+
+//       <ProductForm name={name} price={price} stock={stock} handleName={handleName} handlePrice={handlePrice} handleStock={handleStock} saveProduct={saveProduct}/>
+//     </>
+//   )
+ }
 
 export default App
