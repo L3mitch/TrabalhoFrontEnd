@@ -3,7 +3,7 @@ import {Outlet } from 'react-router-dom'
 import './App.css'
 import ProductTable from './components/ProductTable'
 import ProductForm from './components/ProductForm'
-import Navbar from '.'
+import Navbar from './components/NavBar'
 
 // CRUD COM JSON SERVER
 
@@ -17,7 +17,7 @@ return (
   </>
 )
 
-//   const [products, setProducts] = useState([]);
+
 //   const [id, setId] = useState("");
 //   const [name, setName] = useState("");
 //   const [price, setPrice] = useState("");
