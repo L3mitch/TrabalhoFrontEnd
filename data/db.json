@@ -1,0 +1,32 @@
+{
+  "products": [
+    {
+      "name": "testeaa",
+      "price": "2222",
+      "stock": "22",
+      "id": "adf6"
+    }
+  ],
+  "users": [
+    {
+      "id": "0b68",
+      "nome": "banana",
+      "senha": "sdjbdgbjfhb"
+    },
+    {
+      "id": "eeb8",
+      "nome": "",
+      "senha": ""
+    },
+    {
+      "id": "1a7e",
+      "nome": "",
+      "senha": ""
+    },
+    {
+      "id": "8b72",
+      "nome": "teste",
+      "senha": "2"
+    }
+  ]
+}
