@@ -6,9 +6,7 @@ import { Link } from "react-router-dom";
 const TabelaProdutos = ({ produtos, editProduct, deleteProduct }) => {
     return (
         <div>
-            <div className="memata">
-                <h2 className='memata'>Tabela de Produtos</h2>
-            </div>
+            <h2>Tabela de Produtos</h2>
             <button style={{float: 'right'}}><Link to={'/cadastroProd'}>Cadastrar</Link></button>
             <table className="tabela-produtos">
                 <thead>
