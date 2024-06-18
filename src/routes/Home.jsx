@@ -5,6 +5,7 @@ export default function Home() {
         <div>
             <span style={{padding: '8px'}}><Link to={'/login'}>Login</Link> </span>
             <span style={{padding: '8px'}}><Link to={'/cadastroUser'}>CadastroUser</Link> </span>
+            <span style={{padding: '8px'}}><Link to={'/products'}>Products</Link> </span>
         </div>
     )
 }

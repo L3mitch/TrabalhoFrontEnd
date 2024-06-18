@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom"
+import React from "react";
+import "./CadastroPag.css";
 
-export default function CadastroPag({nome, senha, handleUsername, handlePassword, saveUsername}) {
+const CadastroPag = ({ nome, senha, handleUsername, handlePassword, saveUsername }) => {
     return (
-        <>
-        <div className="container">
-            <h2>Cadastro de Login</h2>
+        <div className="form-container-wrapper">
+            <div className="form-container">
+                <h2>Cadastro de Usuário</h2>
                 <form onSubmit={saveUsername}>
-                    <label htmlFor="nome">Nome:</label>
-                    <input type="text" name="nome" value={nome} onChange={(e) => handleUsername(e)}/>
-
-                    <label htmlFor="price">Senha:</label>
-                    <input type="text" name="price" value={senha} onChange={(e) => handlePassword(e)}/>
-
-                    <input type="submit" value="Teste"/>
-                    <button style={{float: 'right'}}><Link to={'/products'}>PularTelaDeLogin</Link></button>
-                    <button style={{float: 'right'}}><Link to={'http://localhost:3000/users'}>UsuariosCadastrados</Link></button>
+                    <input
+                        type="text"
+                        placeholder="Nome"
+                        value={nome}
+                        onChange={handleUsername}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={handlePassword}
+                    />
+                    <button type="submit">Salvar</button>
                 </form>
+            </div>
         </div>
-        </>
-    )
-}
+    );
+};
+
+export default CadastroPag;
