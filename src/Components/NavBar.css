@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #4CAF50; /* Verde */
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link {
+    padding: 8px;
+    border-radius: 5px; /* Cantos arredondados */
+    background-color: #66BB6A; /* Verde mais claro */
+    text-decoration: none; /* Remover sublinhado */
+}
+
+.linkText {
+    color: white; /* Texto branco */
+    text-decoration: none; /* Remover sublinhado */
+}

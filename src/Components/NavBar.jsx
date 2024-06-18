@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import './NavBar.css';
 
 export default function Navbar() {
     return (
-        <div>
-            <span style={{padding: '8px'}}><Link to={'/'}>Home</Link> </span>
+        <div className="navbar">
+            <span className="link">
+                <Link to="/" className="linkText">Home</Link>
+            </span>
         </div>
-    )
+    );
 }
