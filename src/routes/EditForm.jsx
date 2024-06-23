@@ -4,27 +4,29 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 
 export default function EditForm(){
   
-    const url = 'http://localhost:3000/products';
-    const { id } = useParams();
-    const [name,setName]=useState('');
-    const [price,setPrice]=useState('');
-    const [stock,setStock]=useState('');
-    const navigate=useNavigate()
+  const url = 'http://localhost:3000/products';
+  const { id } = useParams();
+  const [name,setName]=useState('');
+  const [price,setPrice]=useState('');
+  const [stock,setStock]=useState('');
+  const navigate = useNavigate()
 
-    useEffect(() => {
+  useEffect(() => {
     const getProductById = async(id) => {
-    // Faz a requisição http
-    const res = await fetch(url + `/${id}`);
-    const data = await res.json();
-    console.log(data)
-    // Carrega os dados no formulário para edição:
-    setName(data.name)
-    setPrice(data.price);
-    setStock(data.stock);
-  }
 
-  getProductById(id);
-    }, []);
+      // Faz a requisição http
+      const res = await fetch(url + `/${id}`);
+      const data = await res.json();
+      console.log(data)
+
+      // Carrega os dados no formulário para edição:
+      setName(data.name)
+      setPrice(data.price);
+      setStock(data.stock);
+    }
+    getProductById(id);
+
+  }, []);
  
   const saveProduct = async (e) => {
     e.preventDefault();
@@ -39,15 +41,11 @@ export default function EditForm(){
     try {
         const res = await fetch(url + `/${id}`, saveRequestParams);
         navigate('/products')
-    } catch (error) {
-        console.log(error.message)
-        
+    }
+    catch (error) {
+        console.log(error.message)    
     }
   }
-
-  const handleName = (e) => {setName(e.target.value)}
-  const handlePrice = (e) => {setPrice(e.target.value)}
-  const handleStock = (e) => {setStock(e.target.value)}
 
   return (
       <div>
@@ -55,13 +53,13 @@ export default function EditForm(){
           <div className="container">
               <form onSubmit={saveProduct}>
                   <label htmlFor="nome">Nome:</label>
-                  <input type="text" name="nome" value={name} onChange={(e) => handleName(e)}/>
+                  <input type="text" name="nome" value={name} onChange={(e) => setName(e.target.value)}/>
 
                   <label htmlFor="price">Preço:</label>
-                  <input type="number" name="price" value={price} onChange={(e) => handlePrice(e)}/>
+                  <input type="number" name="price" value={price} onChange={(e) => setPrice(e.target.value)}/>
 
                   <label htmlFor="stock">Estoque:</label>
-                  <input type="number" name="stock" value={stock} onChange={(e) => handleStock(e)}/>
+                  <input type="number" name="stock" value={stock} onChange={(e) => setStock(e.target.value)}/>
 
                   <input type="submit" value="Salvar" onChange={(e) => saveProduct(e)}/>
                   <button style={{float: 'right'}}><Link to={'/products'}>Voltar</Link></button>

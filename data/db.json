@@ -1,57 +1,25 @@
 {
-  "products": [
-    {
-      "id": "b580",
-      "name": "aaaaa",
-      "price": "2",
-      "stock": "222"
-    }
-  ],
+  "products": [],
   "users": [
     {
-      "id": "0b68",
-      "nome": "banana",
-      "senha": "sdjbdgbjfhb"
+      "id": "5824",
+      "nome": "bomba",
+      "senha": "23"
     },
     {
-      "id": "eeb8",
-      "nome": "",
-      "senha": ""
+      "id": "1276",
+      "nome": "suicidio",
+      "senha": "2323023"
     },
     {
-      "id": "1a7e",
-      "nome": "",
-      "senha": ""
-    },
-    {
-      "id": "8b72",
-      "nome": "teste",
+      "id": "aaf0",
+      "nome": "homicidio",
       "senha": "2"
     },
     {
-      "id": "9b26",
-      "nome": "sdsfdsgdffd",
-      "senha": "fgdfdfdsgfdgsdfgs"
-    },
-    {
-      "id": "da12",
-      "nome": "",
-      "senha": ""
-    },
-    {
-      "id": "87cf",
-      "nome": "",
-      "senha": ""
-    },
-    {
-      "id": "cfd0",
-      "nome": "",
-      "senha": ""
-    },
-    {
-      "id": "f5f9",
-      "nome": "",
-      "senha": ""
+      "id": "f046",
+      "nome": "burro",
+      "senha": "2232"
     }
   ]
 }

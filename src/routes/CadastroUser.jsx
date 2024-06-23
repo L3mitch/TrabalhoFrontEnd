@@ -1,68 +1,59 @@
-import { useState, useEffect } from "react";
-import CadastroPag from "../Components/CadastroPag";
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function CadastroUser() {
-    const [usuarios, setUsuarios] = useState([]);
+
     const [nome, setNome] = useState("");
     const [senha, setSenha] = useState("");
-    const [edit, setEdit] = useState(false);
-    const [id, setId] = useState(null);
 
     const url = 'http://localhost:3000/users';
-
-    useEffect(() => {
-        const getUserLists = async () => {
-            const res = await fetch(url);
-            const data = await res.json();
-            setUsuarios(data);
-        };
-
-        getUserLists();
-    }, []);
 
     const clearForm = () => {
         setNome("");
         setSenha("");
-        setEdit(false);
-        setId(null);
-    };
-
+    }
+    
     const saveUsername = async (e) => {
         e.preventDefault();
         const saveRequestParams = {
-            method: edit ? "PUT" : "POST",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ nome, senha })
         };
 
-        const saveUrl = edit ? `${url}/${id}` : url;
-        const res = await fetch(saveUrl, saveRequestParams);
-        const savedUser = await res.json();
-
-        if (!edit) {
-            setUsuarios((prevUsuarios) => [...prevUsuarios, savedUser]);
-        } else {
-            const updatedUsuarios = usuarios.map(user => 
-                user.id === id ? savedUser : user
-            );
-            setUsuarios(updatedUsuarios);
+         //  Verificando resposta HTTP
+        try {
+            const res = await fetch(url, saveRequestParams);
+            navigate('/products')
         }
-
+        catch (error) {
+            console.log(error.message)    
+        }
         clearForm();
     };
 
-    const handleUsername = (e) => setNome(e.target.value);
-    const handlePassword = (e) => setSenha(e.target.value);
-
     return (
-        <CadastroPag 
-            nome={nome} 
-            senha={senha} 
-            handleUsername={handleUsername} 
-            handlePassword={handlePassword} 
-            saveUsername={saveUsername}
-        />
+        <div className="form-container-wrapper">
+            <div className="form-container">
+                <h2>Cadastro de Usuário</h2>
+                <form onSubmit={saveUsername}>
+                    <input
+                        type="text"
+                        placeholder="Nome"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                    />
+                    <button type="submit">Salvar</button>
+                </form>
+            </div>
+        </div>
     );
 }

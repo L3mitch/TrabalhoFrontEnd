@@ -26,7 +26,7 @@ const TabelaProdutos = ({ produtos, editProduct, deleteProduct }) => {
                             <td>{produto.price}</td>
                             <td>{produto.stock}</td>
                             <td className="actions">
-                                <button> <Link to={`/products/${produto.id}/info`}>Editar</Link></button>
+                                <button> <Link to={`/products/edit/${produto.id}`}>Editar</Link></button>
                                 <button onClick={() => deleteProduct(produto.id)}>Excluir</button>
                             </td>
                         </tr>

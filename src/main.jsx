@@ -35,11 +35,10 @@ const router = createBrowserRouter([
       },
       {
       
-        path: '/products/:id/info',
+        path: '/products/edit/:id',
         element: <EditForm />
       
       },
-      
       {
         path: '/cadastroProd',
         element: <CadastroProd />
