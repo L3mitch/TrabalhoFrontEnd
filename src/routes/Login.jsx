@@ -1,71 +1,64 @@
-import { useState, useEffect } from 'react'
-import LoginPag from '../Components/CadastroPag'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from "./Login.module.css";
 
-export default function Login(){
+export default function Login() {
+    const [nome, setNome] = useState("");
+    const [senha, setSenha] = useState("");
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
     
-    const [usuarios, setUsers] = useState([])
-    const [nome, setUsername] = useState("")
-    const [senha, setPassword] = useState("")
-    const [edit, setEdit] = useState(false)
-    
-    const url = 'http://localhost:3000/users'
-    
-    useEffect(() => {
-        //Lista todos os usuarios:
-        const getUserLists = async() => {
-            const res = await fetch(url)
-            const data = await res.json()
-            setUsers(data)
-        }
-    
-        getUserLists();
-    
-    }, [])
+    const url = 'http://localhost:3000/users';
 
     const clearForm = () => {
-        setUsername("")
-        setPassword("")
+        setNome("");
+        setSenha("");
     }
     
-    
-    const saveUsername = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const saveRequestParams= {
-            method: edit ? "PUT" : "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({nome, senha})
+
+        try {
+            const res = await fetch(`${url}?nome=${nome}`);
+            const users = await res.json();
+            const res2 = await fetch(`${url}?senha=${senha}`);
+            const pass = await res2.json();
+
+            if (users.length > 0 && pass.length > 0) {
+                const user = users[0];
+                
+                localStorage.setItem('user', JSON.stringify(user));
+                navigate('/home');
+
+            } else {
+                setError('Usuário ou senha inválidos');
+            }
+        } catch (error) {
+            console.log(error.message);
+            setError('Erro na conexão com o servidor');
         }
-        //  Cria url para buscar todos ou apenas um usuario
-        const save_url = edit ? url + `/${id}` : url;
-        //  Faz a requisição http
-        const res = await fetch(save_url, saveRequestParams);
-        // Se for cadastro de usuario novo:
-        if(!edit) {
-            const newUser = await res.json();
-            //  Atualização da tabela:
-            setUsers((prevUser) => [...prevUser, newUser])
-        }
-        //  Se for edição/atualização de usuario ja cadastrado:
-        if(edit) {
-            const editedUser = await res.json();
-            //  Atualização da tabela:
-            const editedUserIndex = usuarios.findIndex(user => user.id === id)
-            usuarios[editedUserIndex] = editedUser;
-            setUsers(usuarios)
-        }
-        clearForm()
-        setEdit(false)
+        clearForm();
     }
-    
-    
-    const handleUsername = (e) => {setUsername(e.target.value)}
-    const handlePassword = (e) => {setPassword(e.target.value)}
 
     return (
-        <>
-        <LoginPag nome={nome} senha={senha} handleUsername={handleUsername} handlePassword={handlePassword} saveUsername={saveUsername}/>
-        </>
-        )
-    }
+
+        // Aqui é chamado o estilo CSS do div, como estamos usando module, tem que ser assim
+       <div className={styles.loginContainer}>
+
+        <h1 style={{textAlign: 'center', color: 'black'}}>SISTEMA DE RASTREAMENTO E CADASTRO DE PRODUTOS</h1>
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
+
+                <label htmlFor="nome">Nome:</label>
+                <input type="text" placeholder="Nome" value={nome} required onChange={(e) => setNome(e.target.value)}/>
+
+                <label htmlFor="senha">Senha:</label>
+                <input type="password" placeholder="Senha" value={senha} required onChange={(e) => setSenha(e.target.value)}/>
+
+                {error && <p style={{color: 'red'}}>{error}</p>}
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    );
+}

@@ -1,29 +1,33 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Product from './routes/Product.jsx'
-import ErrorPage from './routes/ErrorPage.jsx'
-import Login from './routes/Login.jsx'
-import CadastroProd from './routes/CadastroProd.jsx'
-import Home from './routes/Home.jsx'
-import CadastroUser from './routes/CadastroUser.jsx'
-import EditForm from './routes/EditForm.jsx'
+// main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App.jsx';
+import './index.css';
+import Product from './routes/Product.jsx';
+import ErrorPage from './routes/ErrorPage.jsx';
+import Login from './routes/Login.jsx';
+import CadastroProd from './routes/CadastroProd.jsx';
+import Home from './routes/Home.jsx';
+import CadastroUser from './routes/CadastroUser.jsx';
+import EditProduto from './routes/EditProduto.jsx';
+import Users from './routes/Users.jsx';
+import EditUser from './routes/EditUser.jsx';
 
+// Aqui é criado o roteamento das páginas
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <Login />
       },
       {
-        path: '/login',
-        element: <Login />
+        path: '/home',
+        element: <Home />
       },
       {
         path: '/cadastroUser',
@@ -34,10 +38,16 @@ const router = createBrowserRouter([
         element: <Product />
       },
       {
-      
         path: '/products/edit/:id',
-        element: <EditForm />
-      
+        element: <EditProduto />
+      },
+      {
+        path: '/users',
+        element: <Users />
+      },
+      {
+        path: '/users/edit/:id',
+        element: <EditUser/>
       },
       {
         path: '/cadastroProd',
@@ -45,10 +55,10 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

@@ -9,7 +9,7 @@ export default function Product(){
     const url = 'http://localhost:3000/products'
     
     useEffect(() => {
-        //Lista todos os productss:
+        
         const getProductsLists = async() => {
             const res = await fetch(url)
             const data = await res.json()
@@ -21,7 +21,7 @@ export default function Product(){
     }, [])  
     
     const deleteProduct = async(id) => {
-        //   Faz a requisição http
+
         const res = await fetch(url + `/${id}`, {
             method: "DELETE",
             headers: {
@@ -30,14 +30,13 @@ export default function Product(){
         })
     
         const deletedProduct = await res.json()
-        //  Atualização da tabela:
+
         setProducts(products.filter(prod => prod.id !== deletedProduct.id))
     }
     
     return (
         <div>
-            <h2>Tabela de produtos</h2>
-            <button style={{float: 'right'}}><Link to={'/cadastroProd'}>Cadastrar</Link></button>
+            <h2 style={{textAlign: 'center'}}>Tabela de Produtos</h2>
             <table>
                 <thead>
                     <tr>
@@ -45,6 +44,8 @@ export default function Product(){
                         <th>Nome</th>
                         <th>Preço</th>
                         <th>Estoque (kg)</th>
+                        <th>Ano</th>
+                        <th>Observação</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -52,9 +53,11 @@ export default function Product(){
                     {products.map((products) => (
                         <tr key={products.id}>
                             <td>{products.id}</td>
-                            <td>{products.name}</td>
-                            <td>{products.price}</td>
-                            <td>{products.stock}</td>
+                            <td>{products.nome}</td>
+                            <td>{products.preco}</td>
+                            <td>{products.estoque}</td>
+                            <td>{products.ano}</td>
+                            <td>{products.obs}</td>
                             <td className="actions">
                                 <button> <Link to={`/products/edit/${products.id}`}>Editar</Link></button>
                                 <button onClick={() => deleteProduct(products.id)}>Excluir</button>
@@ -63,6 +66,8 @@ export default function Product(){
                     ))}
                 </tbody>
             </table>
+            <button><Link to={'/cadastroProd'}>Cadastrar</Link></button>
+            <button><Link to={'/home'}>Voltar</Link></button>
         </div>
         )
 }

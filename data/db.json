@@ -1,25 +1,22 @@
 {
-  "products": [],
+  "products": [
+    {
+      "id": "4875",
+      "nome": "bomba",
+      "preco": "23",
+      "estoque": "230023",
+      "ano": "0004-03-21",
+      "obs": ""
+    }
+  ],
   "users": [
     {
-      "id": "5824",
-      "nome": "bomba",
-      "senha": "23"
-    },
-    {
-      "id": "1276",
-      "nome": "suicidio",
-      "senha": "2323023"
-    },
-    {
-      "id": "aaf0",
-      "nome": "homicidio",
-      "senha": "2"
-    },
-    {
-      "id": "f046",
-      "nome": "burro",
-      "senha": "2232"
+      "nome": "admin",
+      "senha": "admin",
+      "email": "s@s",
+      "telefone": "222222",
+      "endereco": "2222",
+      "id": "a620"
     }
   ]
 }
