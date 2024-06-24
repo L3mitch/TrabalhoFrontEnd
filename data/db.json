@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": "4875",
+      "nome": "bomba",
+      "preco": "23",
+      "estoque": "230023",
+      "ano": "0004-03-21",
+      "obs": ""
+    }
+  ],
+  "users": [
+    {
+      "nome": "admin",
+      "senha": "admin",
+      "email": "s@s",
+      "telefone": "222222",
+      "endereco": "2222",
+      "id": "a620"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+.loginContainer {
+    background-color: #4CAF50; /* Define a cor de fundo como verde */
+    width: 100%; /* Ocupa toda a largura disponível */
+    height: 100vh; /* Ocupa toda a altura da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Define a cor do texto como branco */
+}
