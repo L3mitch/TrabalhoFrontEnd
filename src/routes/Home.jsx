@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
     return (
-        <div>
-            <span style={{padding: '8px'}}><Link to={'/users'}>Manutenção de Usuários</Link> </span>
-            <span style={{padding: '8px'}}><Link to={'/products'}>Manutenção de Produtos</Link> </span>
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <h2>Menu Principal</h2>
+            <div style={{ marginBottom: '10px' }}>
+                <Link to={'/users'} style={{ marginRight: '10px' }}>Manutenção de Usuários</Link>
+                <Link to={'/products'}>Manutenção de Produtos</Link>
+            </div>
         </div>
-    )
+    );
 }

@@ -1,9 +1,6 @@
 .footer {
-    background-color: #4CAF50; /* Verde */
-    padding: 16px;
+    background-color: green;
+    color: #fff;
     text-align: center;
-    color: white; /* Texto branco */
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
+    padding: 1em 0;
+  }

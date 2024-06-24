@@ -1,42 +1,48 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import './Product.module.css'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Product.module.css'; // Importe o arquivo CSS externo
 
-export default function Product(){
-    
-    const [products, setProducts] = useState([])
-    
-    const url = 'http://localhost:3000/products'
-    
+export default function Products() {
+    const [products, setProducts] = useState([]);
+
+    const url = 'http://localhost:3000/products';
+
     useEffect(() => {
-        
-        const getProductsLists = async() => {
-            const res = await fetch(url)
-            const data = await res.json()
-            setProducts(data)
-        }
-    
+        const getProductsLists = async () => {
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
         getProductsLists();
-    
-    }, [])  
-    
-    const deleteProduct = async(id) => {
+    }, []);
 
-        const res = await fetch(url + `/${id}`, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json"
-            },
-        })
-    
-        const deletedProduct = await res.json()
+    const deleteProduct = async (id) => {
+        try {
+            const res = await fetch(`${url}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
 
-        setProducts(products.filter(prod => prod.id !== deletedProduct.id))
-    }
-    
+            if (!res.ok) {
+                throw new Error('Failed to delete product');
+            }
+
+            setProducts(products.filter(product => product.id !== id));
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+
     return (
-        <div>
-            <h2 style={{textAlign: 'center'}}>Tabela de Produtos</h2>
+        <div className="container">
+            <h2>Tabela de Produtos</h2>
             <table>
                 <thead>
                     <tr>
@@ -50,24 +56,26 @@ export default function Product(){
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((products) => (
-                        <tr key={products.id}>
-                            <td>{products.id}</td>
-                            <td>{products.nome}</td>
-                            <td>{products.preco}</td>
-                            <td>{products.estoque}</td>
-                            <td>{products.ano}</td>
-                            <td>{products.obs}</td>
+                    {products.map((product) => (
+                        <tr key={product.id}>
+                            <td>{product.id}</td>
+                            <td>{product.nome}</td>
+                            <td>{product.preco}</td>
+                            <td>{product.estoque}</td>
+                            <td>{product.ano}</td>
+                            <td>{product.obs}</td>
                             <td className="actions">
-                                <button> <Link to={`/products/edit/${products.id}`}>Editar</Link></button>
-                                <button onClick={() => deleteProduct(products.id)}>Excluir</button>
+                                <button className="button"><Link to={`/products/edit/${product.id}`}>Editar</Link></button>
+                                <button className="button" onClick={() => deleteProduct(product.id)}>Excluir</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <button><Link to={'/cadastroProd'}>Cadastrar</Link></button>
-            <button><Link to={'/home'}>Voltar</Link></button>
+            <div style={{ marginTop: '10px' }}>
+                <button className="button"><Link to={'/cadastroProd'}>Cadastrar</Link></button>
+                <button className="button"><Link to={'/home'}>Voltar</Link></button>
+            </div>
         </div>
-        )
+    );
 }
